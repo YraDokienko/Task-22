@@ -108,7 +108,7 @@ class PizzaCartView(TemplateView):
 class ShippingOrderView(FormView):
     template_name = 'shipping.html'
     form_class = ShippingOrderForm
-    success_url = '/'
+    success_url = 'create/'
 
     def form_valid(self, form):
         form.save()
@@ -118,3 +118,8 @@ class ShippingOrderView(FormView):
         context = super(ShippingOrderView, self).get_context_data(**kwargs)
         context['order'] = Order.objects.first()
         return context
+
+
+class HomePageCreateOrder(TemplateView):
+
+    template_name = 'created.html'
