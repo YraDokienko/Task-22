@@ -106,7 +106,7 @@ class PizzaCartView(TemplateView):
 
 
 class ShippingOrderView(FormView):
-    template_name = ''
+    template_name = 'shipping.html'
     form_class = ShippingOrderForm
     success_url = '/'
 
