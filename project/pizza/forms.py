@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from .models import Pizza
+from .models import Pizza, ShippingOrder
 
 
 class PizzaForm(ModelForm):
@@ -33,3 +33,20 @@ class PizzaSortedForm(forms.Form):
 class AddPizzaToOrderForm(forms.Form):
     count = forms.IntegerField()
     pizza_id = forms.IntegerField()
+
+
+class ShippingOrderForm(ModelForm):
+    apartment = forms.CharField(required=False)
+    front_door = forms.ImageField(required=False)
+    floor = forms.ImageField(required=False)
+    comment = forms.CharField(required=False)
+    type_payment = forms.ChoiceField(required=False, choices=[
+        ['cash', 'Наличными при получении'],
+        ['card', 'Оплата картой']
+    ])
+
+    class Meta:
+        model = ShippingOrder
+        fields = ['first_name', 'last_name', 'email', 'phone', 'city',
+                  'street', 'house', 'apartment', 'front_door',
+                  'floor', 'number_persons', 'type_payment', 'comment', ]
