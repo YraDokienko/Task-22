@@ -68,3 +68,27 @@ class Order(models.Model):
             full_price += pizza.price * pizza.count
         self.full_price = full_price
         self.save()
+
+
+class ShippingOrder(models.Model):
+    first_name = models.CharField('Имя', max_length=50)
+    last_name = models.CharField('Фамилия', max_length=50)
+    email = models.EmailField('Email', )
+    phone = models.IntegerField('Телефон', blank=False)
+    city = models.CharField('Город', max_length=100, default='Одесса')
+    street = models.CharField('Улица', max_length=200)
+    house = models.CharField('Дом', max_length=50)
+    apartment = models.CharField('Квартира', max_length=20, blank=False)
+    front_door = models.PositiveIntegerField('Парадная', blank=False, null=True)
+    floor = models.IntegerField('Этаж', blank=False, null=True)
+    number_persons = models.PositiveIntegerField('Кол-во персон:', default=1)
+    comment = models.CharField('Комментарий', max_length=300, blank=False)
+    type_payment = models.CharField('Способ оплаты', max_length=100)
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'
+
+    def __str__(self):
+        return 'ShippingOrder{}'.format(self.id)

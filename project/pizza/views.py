@@ -1,5 +1,5 @@
 from .forms import PizzaForm, PizzaPriceUpdateForm, PizzaSortedForm, \
-    AddPizzaToOrderForm
+    AddPizzaToOrderForm, ShippingOrderForm
 from django.views.generic import ListView, FormView, UpdateView, TemplateView
 from django.http import HttpResponseRedirect
 from .models import Pizza, Order, InstancePizza
@@ -103,3 +103,23 @@ class PizzaCartView(TemplateView):
         context = super(PizzaCartView, self).get_context_data(**kwargs)
         context['order'] = Order.objects.first()
         return context
+
+
+class ShippingOrderView(FormView):
+    template_name = 'shipping.html'
+    form_class = ShippingOrderForm
+    success_url = 'create/'
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(ShippingOrderView, self).get_context_data(**kwargs)
+        context['order'] = Order.objects.first()
+        return context
+
+
+class HomePageCreateOrder(TemplateView):
+
+    template_name = 'created.html'

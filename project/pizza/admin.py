@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Pizza, Size, Ingredient, Order, InstancePizza
+from .models import Pizza, Size, Ingredient, Order, InstancePizza, ShippingOrder
 
 
 class PizzaAdmin(admin.ModelAdmin):
@@ -27,9 +27,16 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = ['id', 'full_price']
 
 
+class ShippingOrderAdmin(admin.ModelAdmin):
+    list_display = ['id', 'first_name', 'last_name', 'phone', 'email', 'city',
+                    'street', 'house', 'apartment', 'front_door', 'floor',
+                    'number_persons', 'created', 'type_payment', 'comment']
+
+
 admin.site.register(Pizza, PizzaAdmin)
 admin.site.register(Size)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(InstancePizza, InstancePizzaAdmin)
 admin.site.register(Ingredient, IngredientAdmin)
+admin.site.register(ShippingOrder, ShippingOrderAdmin)
 

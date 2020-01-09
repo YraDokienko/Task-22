@@ -12,6 +12,8 @@ urlpatterns = [
     path('stop_spam_page/', TemplateView.as_view(template_name='stop_spam_page.html')),
     path('pizza-price-update/', views.PizzaPriceUpdateView.as_view(), name='price_update'),
     path('add-pizza-to-order/', views.AddPizzaToOrderView.as_view()),
+    path('cart/shipping/', views.ShippingOrderView.as_view(), name='shipping'),
+    path('cart/shipping/create/', views.HomePageCreateOrder.as_view(), name='create'),
     path('del_instance/<int:id>', views.AddPizzaToOrderView.del_instance, name='delete'),
     path('pizza-update/<int:pk>/edit/', views.PizzaUpdateView.as_view(), name='pizza_update'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
