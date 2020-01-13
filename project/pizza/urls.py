@@ -1,7 +1,7 @@
 from django.urls import path
 from django.views.generic import TemplateView
 from django.views.decorators.cache import cache_page
-from . import views
+from . import views, views_api
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -16,4 +16,8 @@ urlpatterns = [
     path('cart/shipping/create/', views.HomePageCreateOrder.as_view(), name='create'),
     path('del_instance/<int:id>', views.AddPizzaToOrderView.del_instance, name='delete'),
     path('pizza-update/<int:pk>/edit/', views.PizzaUpdateView.as_view(), name='pizza_update'),
+    path('api/all_pizzas/', views_api.ApiPizzaView.as_view(), name='api_pizzas'),
+    path('api/filter_price/', views_api.ApiFilterPriceView.as_view(), name='api_filter_price'),
+    path('api/order/', views_api.ApiOrderView.as_view(), name='api_order'),
+    path('api/add_pizza_order/', views_api.ApiAddPizzaToOrder.as_view(), name='api_add_pizza_order'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
