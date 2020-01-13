@@ -48,6 +48,13 @@ class Pizza(models.Model):
         verbose_name_plural = 'Пиццы'
         ordering = ['name']
 
+    def get_serialized_pizza(self):
+        return ({
+            'name': self.name,
+            'price': self.price,
+            'size': self.size.name,
+        })
+
 
 class InstancePizza(models.Model):
     name = models.CharField('Название', max_length=40)
