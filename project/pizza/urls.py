@@ -19,4 +19,5 @@ urlpatterns = [
     path('api/all_pizzas/', views_api.ApiPizzaView.as_view(), name='api_pizzas'),
     path('api/filter_price/', views_api.ApiFilterPriceView.as_view(), name='api_filter_price'),
     path('api/order/', views_api.ApiOrderView.as_view(), name='api_order'),
+    path('api/add_pizza_order/', views_api.ApiAddPizzaToOrder.as_view(), name='api_add_pizza_order'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

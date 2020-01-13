@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 from django.views import View
-from .models import Pizza, Order
+from .models import Pizza, Order, InstancePizza
 
 
 class ApiPizzaView(View):
@@ -47,3 +47,35 @@ class ApiOrderView(View):
                 "price": pizza.price,
             })
         return JsonResponse({"order": order_pizza, "full_price": order.full_price})
+
+
+class ApiAddPizzaToOrder(View):
+
+    def post(self, request, *args, **kwargs):
+        order = Order.objects.first()
+        if not order:
+            order = Order.objects.create()
+
+        pizza_id = request.GET.get('pizza_id')
+        count = request.GET.get('count')
+        instance_pizza = InstancePizza.objects.filter(pizza_template=pizza_id)
+
+        if instance_pizza:
+            instance_pizza = InstancePizza.objects.get(pizza_template=pizza_id)
+            instance_pizza.count += int(count)
+            instance_pizza.save()
+            order.save_full_price()
+
+        else:
+            pizza = Pizza.objects.get(id=pizza_id)
+            instance_pizza = InstancePizza.objects.create(
+                name=pizza.name,
+                size=pizza.size,
+                price=pizza.price,
+                count=count,
+                pizza_template=pizza
+            )
+
+            order.pizzas.add(instance_pizza)
+            order.save_full_price()
+        return JsonResponse({"message": "Pizza add to order!"})
