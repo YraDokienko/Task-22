@@ -17,4 +17,5 @@ urlpatterns = [
     path('del_instance/<int:id>', views.AddPizzaToOrderView.del_instance, name='delete'),
     path('pizza-update/<int:pk>/edit/', views.PizzaUpdateView.as_view(), name='pizza_update'),
     path('api/all_pizzas/', views_api.ApiPizzaView.as_view(), name='api_pizzas'),
+    path('api/filter_price/', views_api.ApiFilterPriceView.as_view(), name='api_filter_price'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
