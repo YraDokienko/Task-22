@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 from django.views import View
-from .models import Pizza
+from .models import Pizza, Order
 
 
 class ApiPizzaView(View):
@@ -33,3 +33,17 @@ class ApiFilterPriceView(View):
         for pizza in pizzas:
             data.append(pizza.get_serialized_pizza())
         return JsonResponse({"pizza_list": data})
+
+
+class ApiOrderView(View):
+
+    def get(self, request):
+        order = Order.objects.first()
+        order_pizza = []
+        for pizza in order.pizzas.all():
+            order_pizza.append({
+                "name": pizza.name,
+                "count": pizza.count,
+                "price": pizza.price,
+            })
+        return JsonResponse({"order": order_pizza, "full_price": order.full_price})
