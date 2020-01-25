@@ -22,7 +22,7 @@ class PizzaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Pizza
-        fields = ('name', 'size', 'price', 'description', 'slug', 'ingredient',)
+        fields = ('id','name', 'size', 'price', 'description', 'slug', 'ingredient',)
 
 
 class InstancePizzaSerializer(serializers.ModelSerializer):
@@ -39,3 +39,8 @@ class CartSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = "__all__"
+
+
+class InstanceCartSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    count = serializers.IntegerField()
